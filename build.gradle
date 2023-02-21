@@ -1,5 +1,13 @@
 plugins {
     id 'java'
+    id 'idea'
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file('./webapp/WEB-INF/classes')
+    }
 }
 
 group 'org.example'
@@ -10,8 +18,8 @@ repositories {
 }
 
 ext {
-    springVersion = "4.2.5.RELEASE"
-    tomcatVersion = '8.5.85'
+    springVersion = "5.1.8.RELEASE"
+    tomcatVersion = '8.5.42'
 }
 
 dependencies {

@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="jwp-di:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/jwp_di_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="jwp-di/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="jwp-di" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
