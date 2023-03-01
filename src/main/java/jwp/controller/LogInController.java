@@ -31,8 +31,12 @@ public class LogInController extends HttpServlet {
         if (user != null && user.getPassword().equals(password)) {
             HttpSession session = req.getSession();
             session.setAttribute("user",user);
+            resp.sendRedirect("/");
+            return;
         }
-        resp.sendRedirect("/");
 
+        req.setAttribute("loginFailed",true);
+        RequestDispatcher rd = req.getRequestDispatcher("/user/login.jsp");
+        rd.forward(req, resp);
     }
 }
