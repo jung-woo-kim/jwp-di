@@ -32,4 +32,10 @@ public class MemoryUserRepository {
     public Collection<User> findAll() {
         return users.values();
     }
+
+    public void changeUserInfo(User user) {
+        if (users.get(user.getUserId()) != null) {
+            users.put(user.getUserId(), user);
+        }
+    }
 }
