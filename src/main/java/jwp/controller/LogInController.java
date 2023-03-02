@@ -12,31 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/users/loginForm","/users/login"})
-public class LogInController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("/user/login.jsp");
-        rd.forward(req, resp);
-    }
+public class LogInController implements Controller {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId = req.getParameter("userId");
-        String password = req.getParameter("password");
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        String userId = request.getParameter("userId");
+        String password = request.getParameter("password");
 
         MemoryUserRepository memoryUserRepository = MemoryUserRepository.getInstance();
         User user = memoryUserRepository.findUserById(userId);
 
         if (user != null && user.getPassword().equals(password)) {
-            HttpSession session = req.getSession();
+            HttpSession session = request.getSession();
             session.setAttribute("user",user);
-            resp.sendRedirect("/");
-            return;
+            return "redirect:/";
         }
 
-        req.setAttribute("loginFailed",true);
-        RequestDispatcher rd = req.getRequestDispatcher("/user/login.jsp");
-        rd.forward(req, resp);
+        request.setAttribute("loginFailed",true);
+        return "/user/login.jsp";
     }
 }

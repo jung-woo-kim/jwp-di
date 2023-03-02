@@ -1,6 +1,7 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
+import jwp.HttpSessionUtils;
 import jwp.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -14,25 +15,18 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(value = "/user/list")
-public class ListUserController extends HttpServlet {
+
+public class ListUserController implements Controller {
     private static Logger logger = Logger.getLogger(ListUserController.class.getName());
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        Object value = session.getAttribute("user");
-        if (value == null) {
-            resp.sendRedirect("/");
-            return;
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if (HttpSessionUtils.isLogined(session)) {
+            MemoryUserRepository userRepository = MemoryUserRepository.getInstance();
+            request.setAttribute("users",userRepository.findAll());
+            return "/user/list.jsp";
         }
-        MemoryUserRepository userRepository = MemoryUserRepository.getInstance();
-        req.setAttribute("users",userRepository.findAll());
-        RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
-        rd.forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        return "redirect:/users/loginForm";
     }
 }

@@ -11,24 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/users/updateForm")
-public class UpdateUserFormController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+public class UpdateUserFormController implements Controller {
 
-        HttpSession session = req.getSession();
+
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
         Object value = session.getAttribute("user");
         if (value != null) {
             User user = (User) value;
-            if (user.getUserId().equals(req.getParameter("userId"))){
-                RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
-                req.setAttribute("user",user);
-                rd.forward(req,resp);
-                return;
+            if (user.getUserId().equals(request.getParameter("userId"))){
+                request.setAttribute("user",user);
+                return "/user/updateForm.jsp";
             }
-            resp.sendRedirect("/user/list");
-            return;
+            return "redirect:/user/list";
         }
-        resp.sendRedirect("/");
+        return "redirect:/";
     }
 }
