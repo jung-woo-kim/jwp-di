@@ -1,6 +1,5 @@
 package jwp.controller;
 
-import core.db.MemoryUserRepository;
 import jwp.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/users/updateForm")
-public class UpdateUserFormServlet extends HttpServlet {
+public class UpdateUserFormController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
