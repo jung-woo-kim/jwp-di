@@ -11,72 +11,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+
+
     public void insert(User user) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-            con = ConnectionManager.getConnection();
-            String sql = createQueryForInsert();
-            pstmt = con.prepareStatement(sql);
-            setValuesForInsert(user, pstmt);
-
-            pstmt.executeUpdate();
-        } finally {
-            if (pstmt != null) {
-                pstmt.close();
+        InsertJdbcTemplate insertJdbcTemplate = new InsertJdbcTemplate() {
+            @Override
+            public String createQueryForInsert() {
+                return "INSERT INTO USERS VALUES (?, ?, ?, ?)";
             }
 
-            if (con != null) {
-                con.close();
+            @Override
+            public void setValuesForInsert(User user, PreparedStatement pstmt) throws SQLException {
+                pstmt.setString(1, user.getUserId());
+                pstmt.setString(2, user.getPassword());
+                pstmt.setString(3, user.getName());
+                pstmt.setString(4, user.getEmail());
             }
-        }
+        };
+        insertJdbcTemplate.insert(user);
     }
-
-    private String createQueryForInsert() {
-        return "INSERT INTO USERS VALUES (?, ?, ?, ?)";
-    }
-
-
-    private void setValuesForInsert(User user, PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, user.getUserId());
-        pstmt.setString(2, user.getPassword());
-        pstmt.setString(3, user.getName());
-        pstmt.setString(4, user.getEmail());
-    }
-
 
     public void update(User user) throws SQLException {
-        // TODO 구현 필요함.
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-            con = ConnectionManager.getConnection();
-            String sql = createQueryForUpdate();
-            pstmt = con.prepareStatement(sql);
-            setValuesForUpdate(user, pstmt);
-
-            pstmt.executeUpdate();
-        } finally {
-            if (pstmt != null) {
-                pstmt.close();
+        UpdateJdbcTemplate updateJdbcTemplate = new UpdateJdbcTemplate() {
+            @Override
+            String createQueryForUpdate() {
+                return "update users set password=?, name=?, email=? where userId=?";
             }
 
-            if (con != null) {
-                con.close();
+            @Override
+            void setValuesForUpdate(User user, PreparedStatement pstmt) throws SQLException {
+                pstmt.setString(1, user.getPassword());
+                pstmt.setString(2, user.getName());
+                pstmt.setString(3, user.getEmail());
+                pstmt.setString(4, user.getUserId());
             }
-        }
+        };
+
+        updateJdbcTemplate.update(user);
     }
 
-    private String createQueryForUpdate() {
-        return "update users set password=?, name=?, email=? where userId=?";
-    }
 
-    private void setValuesForUpdate(User user, PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, user.getPassword());
-        pstmt.setString(2, user.getName());
-        pstmt.setString(3, user.getEmail());
-        pstmt.setString(4, user.getUserId());
-    }
 
     public List<User> findAll() throws SQLException {
         // TODO 구현 필요함.
