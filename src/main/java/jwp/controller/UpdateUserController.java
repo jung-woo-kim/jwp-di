@@ -5,8 +5,6 @@ import jwp.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -23,11 +21,8 @@ public class UpdateUserController implements Controller {
                 request.getParameter("email"));
 
         UserDao userDao = new UserDao();
-        try {
-            userDao.update(user);
-        } catch (SQLException e) {
-            logger.log(Level.WARNING, e.getMessage());
-        }
+        userDao.update(user);
+
         return "redirect:/user/list";
     }
 }

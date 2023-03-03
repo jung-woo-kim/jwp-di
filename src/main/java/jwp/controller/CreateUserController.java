@@ -1,6 +1,5 @@
 package jwp.controller;
 
-import core.db.MemoryUserRepository;
 import jwp.dao.UserDao;
 import jwp.model.User;
 
@@ -8,8 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -24,11 +21,8 @@ public class CreateUserController implements Controller {
                 request.getParameter("name"),
                 request.getParameter("email"));
         UserDao userDao = new UserDao();
-        try {
-            userDao.insert(user);
-        } catch (SQLException e) {
-            logger.log(Level.WARNING,e.getMessage());
-        }
+        userDao.insert(user);
+
         return "redirect:/user/list";
     }
 }
