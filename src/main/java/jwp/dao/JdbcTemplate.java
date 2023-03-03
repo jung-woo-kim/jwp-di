@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcTemplate {
+public class JdbcTemplate<T> {
     public void update(String sql, PreparedStatementSetter pstmtSetter) throws SQLException {
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmtSetter.setValues(pstmt);
@@ -18,18 +18,18 @@ public class JdbcTemplate {
         }
     }
 
-    public List<Object> query(String sql, RowMapper rowMapper) throws SQLException {
-        List<Object> objects = new ArrayList<>();
+    public List<T> query(String sql, RowMapper<T> rowMapper) throws SQLException {
+        List<T> objects = new ArrayList<>();
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
-                Object object = rowMapper.mapRow(rs);
+                T object = rowMapper.mapRow(rs);
                 objects.add(object);
             }
         }
         return objects;
     }
 
-    public Object queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper rowMapper) throws SQLException {
+    public T queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper<T> rowMapper) throws SQLException {
         ResultSet rs = null;
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmtSetter.setValues(pstmt);
