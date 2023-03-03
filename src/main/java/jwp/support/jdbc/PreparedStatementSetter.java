@@ -1,4 +1,4 @@
-package jwp.dao;
+package jwp.support.jdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

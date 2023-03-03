@@ -1,4 +1,4 @@
-package jwp.dao;
+package jwp.support.jdbc;
 
 import core.jdbc.ConnectionManager;
 

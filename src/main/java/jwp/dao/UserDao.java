@@ -1,8 +1,8 @@
 package jwp.dao;
 
 import jwp.model.User;
+import jwp.support.jdbc.JdbcTemplate;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserDao {
