@@ -6,7 +6,7 @@ import jwp.support.jdbc.JdbcTemplate;
 import java.util.List;
 
 public class UserDao {
-    JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<>();
+    private final JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<>();
     public void insert(User user) {
         jdbcTemplate.update("INSERT INTO USERS VALUES (?, ?, ?, ?)", pstmt -> {
             pstmt.setString(1, user.getUserId());

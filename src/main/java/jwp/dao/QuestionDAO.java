@@ -6,7 +6,7 @@ import jwp.support.jdbc.JdbcTemplate;
 import java.util.List;
 
 public class QuestionDAO {
-    JdbcTemplate<Question> jdbcTemplate = new JdbcTemplate<>();
+    private final JdbcTemplate<Question> jdbcTemplate = new JdbcTemplate<>();
 
     public List<Question> findAll() {
         return jdbcTemplate.query("SELECT * FROM QUESTIONS", rs ->
