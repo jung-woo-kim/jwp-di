@@ -18,6 +18,15 @@ public class JdbcTemplate<T> {
         }
     }
 
+    public void update(String sql, Object... values) throws SQLException {
+        try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            for (int i = 0; i < values.length; i++) {
+                pstmt.setObject(i+1,values[i]);
+            }
+            pstmt.executeUpdate();
+        }
+    }
+
     public List<T> query(String sql, RowMapper<T> rowMapper) throws SQLException {
         List<T> objects = new ArrayList<>();
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
