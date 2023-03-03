@@ -1,4 +1,4 @@
-package jwp;
+package jwp.util;
 
 import javax.servlet.http.HttpSession;
 
