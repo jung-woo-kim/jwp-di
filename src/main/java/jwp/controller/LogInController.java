@@ -20,7 +20,7 @@ public class LogInController implements Controller {
         UserDao userDao = new UserDao();
 
         User user = userDao.findByUserId(userId);
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && user.matchPassword(password)) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             return "redirect:/";
