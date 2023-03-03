@@ -1,17 +1,18 @@
 package jwp.controller;
 
-import core.db.MemoryUserRepository;
+import jwp.dao.UserDao;
 import jwp.model.User;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class UpdateUserController implements Controller {
+
+    Logger logger = Logger.getLogger(UpdateUserController.class.getName());
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -21,8 +22,12 @@ public class UpdateUserController implements Controller {
                 request.getParameter("name"),
                 request.getParameter("email"));
 
-        MemoryUserRepository userRepository = MemoryUserRepository.getInstance();
-        userRepository.changeUserInfo(user);
+        UserDao userDao = new UserDao();
+        try {
+            userDao.update(user);
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, e.getMessage());
+        }
         return "redirect:/user/list";
     }
 }
