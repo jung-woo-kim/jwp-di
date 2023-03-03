@@ -1,31 +1,48 @@
 package jwp.dao;
 
 import core.jdbc.ConnectionManager;
-import jwp.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class JdbcTemplate {
-    public void update(String sql) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-            con = ConnectionManager.getConnection();
-            pstmt = con.prepareStatement(sql);
-            setValues(pstmt);
+public class JdbcTemplate {
+    public void update(String sql, PreparedStatementSetter pstmtSetter) throws SQLException {
+        try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmtSetter.setValues(pstmt);
 
             pstmt.executeUpdate();
-        } finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
+        }
+    }
 
-            if (con != null) {
-                con.close();
+    public List<Object> query(String sql, RowMapper rowMapper) throws SQLException {
+        List<Object> objects = new ArrayList<>();
+        try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Object object = rowMapper.mapRow(rs);
+                objects.add(object);
+            }
+        }
+        return objects;
+    }
+
+    public Object queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper rowMapper) throws SQLException {
+        ResultSet rs = null;
+        try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmtSetter.setValues(pstmt);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rowMapper.mapRow(rs);
+            }
+            return null;
+        } finally {
+            if (rs != null) {
+                rs.close();
             }
         }
     }
-    abstract public void setValues(PreparedStatement pstmt) throws SQLException;
+
 }
