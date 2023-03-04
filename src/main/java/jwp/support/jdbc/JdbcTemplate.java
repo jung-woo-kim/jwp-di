@@ -31,6 +31,21 @@ public class JdbcTemplate<T> {
         }
     }
 
+    public void update(String sql, PreparedStatementSetter pstmtSetter, KeyHolder holder) {
+        try (Connection conn = ConnectionManager.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmtSetter.setValues(pstmt);
+            pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                holder.setId(rs.getLong(1));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<T> query(String sql, RowMapper<T> rowMapper){
         List<T> objects = new ArrayList<>();
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
