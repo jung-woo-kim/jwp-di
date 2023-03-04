@@ -23,7 +23,7 @@ public class AnswerDAO {
     }
 
     public List<Answer> findAllByQuestionId(String questionId) {
-        return jdbcTemplate.query("SELECT * FROM ANSWERS WHERE questionId=?",
+        return jdbcTemplate.query("SELECT * FROM ANSWERS WHERE questionId=? order by answerId",
                 pstmt -> pstmt.setString(1, questionId),
                 rs -> new Answer(rs.getInt("answerId"),
                         rs.getInt("questionId"),

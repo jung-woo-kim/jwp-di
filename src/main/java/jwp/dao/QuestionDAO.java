@@ -9,7 +9,7 @@ public class QuestionDAO {
     private final JdbcTemplate<Question> jdbcTemplate = new JdbcTemplate<>();
 
     public List<Question> findAll() {
-        return jdbcTemplate.query("SELECT * FROM QUESTIONS", rs ->
+        return jdbcTemplate.query("SELECT * FROM QUESTIONS order by questionId", rs ->
                 new Question(rs.getInt("questionId"),
                         rs.getString("writer"),
                         rs.getString("title"),
