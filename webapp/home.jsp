@@ -18,7 +18,7 @@
 						<div class="wrap">
 							<div class="main">
 								<strong class="subject">
-									<a href="./qna/show.html">${question.title}</a>
+									<a href="./qna/show?questionId=${question.questionId}">${question.title}</a>
 								</strong>
 								<div class="auth-info">
 									<i class="icon-add-comment"></i>
@@ -48,7 +48,7 @@
 					</ul>
 				</div>
 				<div class="col-md-3 qna-write">
-					<a href="./qna/form.html" class="btn btn-primary pull-right" role="button">질문하기</a>
+					<a href="qna/show.jsp" class="btn btn-primary pull-right" role="button">질문하기</a>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 package jwp.container;
 
 import jwp.controller.*;
+import jwp.controller.qna.ShowController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class RequestMapping {
         controllers.put("/users/logout", new LogOutController());
         controllers.put("/users/update", new UpdateUserController());
         controllers.put("/users/updateForm", new UpdateUserFormController());
+        controllers.put("/qna/show", new ShowController());
     }
 
     public Controller getController(String url) {
