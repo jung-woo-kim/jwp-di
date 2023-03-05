@@ -54,6 +54,10 @@ public class Question {
         return countOfAnswer;
     }
 
+    public void increaseCountOfAnswer() {
+        countOfAnswer += 1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

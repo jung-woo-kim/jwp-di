@@ -2,6 +2,7 @@ package jwp.dao;
 
 import jwp.model.Answer;
 import jwp.model.Question;
+import jwp.model.User;
 import jwp.support.jdbc.JdbcTemplate;
 import jwp.support.jdbc.KeyHolder;
 
@@ -44,5 +45,13 @@ public class QuestionDAO {
                         rs.getString("contents"),
                         rs.getDate("createdDate"),
                         rs.getInt("countOfAnswer")));
+    }
+
+    public void updateCountOfAnswer(Question question) {
+
+        jdbcTemplate.update("update QUESTIONS set countOfAnswer=? where questionId=?", pstmt -> {
+            pstmt.setObject(1, question.getCountOfAnswer());
+            pstmt.setObject(2, question.getQuestionId());
+        });
     }
 }
