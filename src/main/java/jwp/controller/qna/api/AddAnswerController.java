@@ -1,4 +1,4 @@
-package jwp.controller.api;
+package jwp.controller.qna.api;
 
 import jwp.controller.AbstractController;
 import jwp.dao.AnswerDAO;

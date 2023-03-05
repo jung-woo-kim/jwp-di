@@ -1,8 +1,8 @@
 package jwp.mvc_container;
 
 import jwp.controller.*;
-import jwp.controller.api.AddAnswerController;
-import jwp.controller.api.DeleteAnswerController;
+import jwp.controller.qna.api.AddAnswerController;
+import jwp.controller.qna.api.DeleteAnswerController;
 import jwp.controller.qna.AddQuestionController;
 import jwp.controller.qna.ShowController;
 
