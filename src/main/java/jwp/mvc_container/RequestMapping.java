@@ -1,4 +1,4 @@
-package jwp.container;
+package jwp.mvc_container;
 
 import jwp.controller.*;
 import jwp.controller.api.AddAnswerController;

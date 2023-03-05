@@ -5,6 +5,8 @@ import jwp.dao.AnswerDAO;
 import jwp.dao.QuestionDAO;
 import jwp.model.Answer;
 import jwp.model.Question;
+import jwp.mvc_container.JspView;
+import jwp.mvc_container.View;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,7 @@ import java.util.List;
 public class ShowController implements Controller {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public View execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionDAO questionDAO = new QuestionDAO();
         AnswerDAO answerDAO = new AnswerDAO();
 
@@ -26,6 +28,6 @@ public class ShowController implements Controller {
         List<Answer> answers = answerDAO.findAllByQuestionId(Integer.parseInt(questionId));
         request.setAttribute("answers",answers);
 
-        return "/qna/show.jsp";
+        return new JspView("/qna/show.jsp");
     }
 }

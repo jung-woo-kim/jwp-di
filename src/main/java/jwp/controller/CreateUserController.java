@@ -2,6 +2,8 @@ package jwp.controller;
 
 import jwp.dao.UserDao;
 import jwp.model.User;
+import jwp.mvc_container.JspView;
+import jwp.mvc_container.View;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,7 @@ public class CreateUserController implements Controller {
 
     Logger logger = Logger.getLogger(CreateUserController.class.getName());
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public View execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User(
                 request.getParameter("userId"),
                 request.getParameter("password"),
@@ -23,6 +25,6 @@ public class CreateUserController implements Controller {
         UserDao userDao = new UserDao();
         userDao.insert(user);
 
-        return "redirect:/user/list";
+        return new JspView("redirect:/user/list");
     }
 }

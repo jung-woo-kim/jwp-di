@@ -1,4 +1,4 @@
-package jwp.container;
+package jwp.mvc_container;
 
 import jwp.controller.Controller;
 
@@ -27,23 +27,12 @@ public class DispatcherServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Controller controller = requestMapping.getController(req.getRequestURI());
         try {
-            String viewName = controller.execute(req, resp);
-            if (viewName != null) {
-                move(viewName, req, resp);
-            }
+            View view = controller.execute(req, resp);
+            view.render(req,resp);
         } catch (Exception e) {
             logger.log(Level.WARNING,e.getMessage());
         }
 
-    }
-
-    private void move(String viewName, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (viewName.startsWith("redirect")) {
-            resp.sendRedirect(viewName.split(":")[1]);
-            return;
-        }
-        RequestDispatcher rd = req.getRequestDispatcher(viewName);
-        rd.forward(req, resp);
     }
 
 }

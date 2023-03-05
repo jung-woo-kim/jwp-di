@@ -1,5 +1,8 @@
 package jwp.controller;
 
+import jwp.mvc_container.JspView;
+import jwp.mvc_container.View;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +16,7 @@ public class ForwardController implements Controller{
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return url;
+    public View execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        return new JspView(url);
     }
 }
