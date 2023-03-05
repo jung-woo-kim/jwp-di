@@ -1,6 +1,7 @@
 package jwp.mvc_container;
 
 import jwp.controller.*;
+import jwp.controller.qna.FormController;
 import jwp.controller.qna.api.AddAnswerController;
 import jwp.controller.qna.api.DeleteAnswerController;
 import jwp.controller.qna.AddQuestionController;
@@ -29,7 +30,7 @@ public class RequestMapping {
         controllers.put("/users/updateForm", new UpdateUserFormController());
 
         controllers.put("/qna/show", new ShowController());
-        controllers.put("/qna/form", new ForwardController("/qna/form.jsp"));
+        controllers.put("/qna/form", new FormController());
         controllers.put("/qna/create", new AddQuestionController());
 
 
