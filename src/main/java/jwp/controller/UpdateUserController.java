@@ -2,20 +2,19 @@ package jwp.controller;
 
 import jwp.dao.UserDao;
 import jwp.model.User;
-import jwp.mvc_container.JspView;
-import jwp.mvc_container.View;
+import jwp.mvc_container.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.logging.Logger;
 
 
-public class UpdateUserController implements Controller {
+public class UpdateUserController extends AbstractController {
 
     Logger logger = Logger.getLogger(UpdateUserController.class.getName());
 
     @Override
-    public View execute(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
         User user = new User(
                 request.getParameter("userId"),
                 request.getParameter("password"),
@@ -25,6 +24,6 @@ public class UpdateUserController implements Controller {
         UserDao userDao = new UserDao();
         userDao.update(user);
 
-        return new JspView("redirect:/user/list");
+        return jspView("redirect:/user/list");
     }
 }

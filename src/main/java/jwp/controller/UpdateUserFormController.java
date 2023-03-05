@@ -1,27 +1,25 @@
 package jwp.controller;
 
 import jwp.model.User;
-import jwp.mvc_container.JspView;
-import jwp.mvc_container.View;
+import jwp.mvc_container.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class UpdateUserFormController implements Controller {
+public class UpdateUserFormController extends AbstractController {
 
     @Override
-    public View execute(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Object value = session.getAttribute("user");
         if (value != null) {
             User user = (User) value;
             if (user.getUserId().equals(request.getParameter("userId"))){
-                request.setAttribute("user",user);
-                return new JspView("/user/updateForm.jsp");
+                return jspView("/user/updateForm.jsp").addObject("user",user);
             }
-            return new JspView("redirect:/user/list");
+            return jspView("redirect:/user/list");
         }
-        return new JspView("redirect:/");
+        return jspView("redirect:/");
     }
 }

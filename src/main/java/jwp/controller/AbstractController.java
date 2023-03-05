@@ -1,22 +1,15 @@
 package jwp.controller;
 
-import jwp.mvc_container.View;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import jwp.mvc_container.JsonView;
+import jwp.mvc_container.JspView;
+import jwp.mvc_container.ModelAndView;
 
 public abstract class AbstractController implements Controller{
-    @Override
-    public View execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getMethod().equals("GET")) {
-            return doGet(request, response);
-
-        }
-        return doPost(request, response);
+    protected ModelAndView jspView(String url) {
+        return new ModelAndView(new JspView(url));
     }
-    abstract View doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
-    abstract View doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    protected ModelAndView jsonView() {
+        return new ModelAndView(new JsonView());
+    }
 }

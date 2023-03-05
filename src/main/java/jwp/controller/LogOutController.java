@@ -1,19 +1,18 @@
 package jwp.controller;
 
-import jwp.mvc_container.JspView;
-import jwp.mvc_container.View;
+import jwp.mvc_container.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-public class LogOutController implements Controller {
+public class LogOutController extends AbstractController {
 
     @Override
-    public View execute(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.removeAttribute("user");
-        return new JspView("redirect:/");
+        return jspView("redirect:/");
     }
 }
