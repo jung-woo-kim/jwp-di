@@ -24,6 +24,6 @@ class AnswerDAOTest {
         Answer expected = new Answer(questionId,"javajigi", "answer contents");
         AnswerDAO dut = new AnswerDAO();
         Answer actual = dut.insert(expected);
-        assertTrue(expected.equals(actual));
+        assertEquals(expected,actual);
     }
 }

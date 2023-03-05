@@ -1,6 +1,7 @@
 package jwp.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Question {
@@ -17,6 +18,15 @@ public class Question {
         this.title = title;
         this.contents = contents;
         this.createdDate = createdDate;
+        this.countOfAnswer = countOfAnswer;
+    }
+
+    public Question(String writer, String title, String contents, int countOfAnswer) {
+        this.questionId = 0;
+        this.writer = writer;
+        this.title = title;
+        this.contents = contents;
+        this.createdDate = Date.valueOf(LocalDate.now());
         this.countOfAnswer = countOfAnswer;
     }
 
@@ -49,11 +59,11 @@ public class Question {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Question question = (Question) o;
-        return getQuestionId() == question.getQuestionId() && getCountOfAnswer() == question.getCountOfAnswer() && Objects.equals(getWriter(), question.getWriter()) && Objects.equals(getTitle(), question.getTitle()) && Objects.equals(getContents(), question.getContents());
+        return getCountOfAnswer() == question.getCountOfAnswer() && Objects.equals(getWriter(), question.getWriter()) && Objects.equals(getTitle(), question.getTitle()) && Objects.equals(getContents(), question.getContents());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestionId(), getWriter(), getTitle(), getContents(), getCountOfAnswer());
+        return Objects.hash(getWriter(), getTitle(), getContents(), getCountOfAnswer());
     }
 }
