@@ -22,9 +22,14 @@ public class AnswerDAO {
         return findById(keyHolder.getId());
     }
 
-    public List<Answer> findAllByQuestionId(String questionId) {
+    public void delete(int answerId) {
+        jdbcTemplate.update("DELETE FROM ANSWERS WHERE answerId=?",
+                pstmt -> pstmt.setObject(1,answerId));
+    }
+
+    public List<Answer> findAllByQuestionId(int questionId) {
         return jdbcTemplate.query("SELECT * FROM ANSWERS WHERE questionId=? order by answerId",
-                pstmt -> pstmt.setString(1, questionId),
+                pstmt -> pstmt.setObject(1, questionId),
                 rs -> new Answer(rs.getInt("answerId"),
                         rs.getInt("questionId"),
                         rs.getString("writer"),

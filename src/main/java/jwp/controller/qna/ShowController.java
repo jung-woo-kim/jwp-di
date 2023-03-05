@@ -23,7 +23,7 @@ public class ShowController implements Controller {
         Question question = questionDAO.findByQuestionId(questionId);
         request.setAttribute("question", question);
 
-        List<Answer> answers = answerDAO.findAllByQuestionId(questionId);
+        List<Answer> answers = answerDAO.findAllByQuestionId(Integer.parseInt(questionId));
         request.setAttribute("answers",answers);
 
         return "/qna/show.jsp";

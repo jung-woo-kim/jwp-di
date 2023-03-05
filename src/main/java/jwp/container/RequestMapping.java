@@ -2,6 +2,7 @@ package jwp.container;
 
 import jwp.controller.*;
 import jwp.controller.api.AddAnswerController;
+import jwp.controller.api.DeleteAnswerController;
 import jwp.controller.qna.ShowController;
 
 import java.util.HashMap;
@@ -26,6 +27,8 @@ public class RequestMapping {
         controllers.put("/users/updateForm", new UpdateUserFormController());
         controllers.put("/qna/show", new ShowController());
         controllers.put("/api/qna/addAnswer", new AddAnswerController());
+        controllers.put("/api/qna/deleteAnswer", new DeleteAnswerController());
+
 
     }
 
