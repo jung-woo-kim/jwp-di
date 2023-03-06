@@ -34,9 +34,9 @@ public class AnswerDAO {
         return findById(keyHolder.getId());
     }
 
-    public void delete(int answerId) {
+    public void delete(int id) {
         jdbcTemplate.update("DELETE FROM ANSWERS WHERE answerId=?",
-                pstmt -> pstmt.setObject(1,answerId));
+                pstmt -> pstmt.setObject(1,id));
     }
 
     public List<Answer> findAllByQuestionId(int questionId) {

@@ -35,6 +35,11 @@ public class QuestionDAO {
         return findByQuestionId(keyHolder.getId());
     }
 
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM QUESTIONS WHERE questionId=?",
+                pstmt -> pstmt.setObject(1,id));
+    }
+
     public List<Question> findAll() {
         return jdbcTemplate.query("SELECT * FROM QUESTIONS order by questionId", rs ->
                 new Question(rs.getInt("questionId"),
