@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class ShowController extends AbstractController {
+    AnswerDAO answerDAO = AnswerDAO.getInstance();
+    QuestionDAO questionDAO = QuestionDAO.getInstance();
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        QuestionDAO questionDAO = new QuestionDAO();
-        AnswerDAO answerDAO = new AnswerDAO();
 
         String questionId = request.getParameter("questionId");
         Question question = questionDAO.findByQuestionId(Integer.parseInt(questionId));

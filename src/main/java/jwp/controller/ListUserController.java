@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 
 public class ListUserController extends AbstractController {
     private static Logger logger = Logger.getLogger(ListUserController.class.getName());
+    UserDao userDao = UserDao.getInstance();
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         if (UserSessionUtils.isLogined(session)) {
-            UserDao userDao = new UserDao();
             return jspView("/user/list.jsp").addObject("users", userDao.findAll());
         }
         return jspView("redirect:/users/loginForm");

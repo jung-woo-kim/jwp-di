@@ -11,8 +11,10 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnswerDAOTest {
+    static AnswerDAO answerDAO;
     @BeforeAll
     public static void setup() {
+        answerDAO = AnswerDAO.getInstance();
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(new ClassPathResource("jwp.sql"));
         DatabasePopulatorUtils.execute(populator, ConnectionManager.getDataSource());
@@ -22,8 +24,7 @@ class AnswerDAOTest {
     public void addAnswer() throws Exception {
         int questionId = 1;
         Answer expected = new Answer(questionId,"javajigi", "answer contents");
-        AnswerDAO dut = new AnswerDAO();
-        Answer actual = dut.insert(expected);
+        Answer actual = answerDAO.insert(expected);
         assertEquals(expected,actual);
     }
 }

@@ -1,8 +1,6 @@
 package jwp.dao;
 
-import jwp.model.Answer;
 import jwp.model.Question;
-import jwp.model.User;
 import jwp.support.jdbc.JdbcTemplate;
 import jwp.support.jdbc.KeyHolder;
 
@@ -10,6 +8,17 @@ import java.util.List;
 
 public class QuestionDAO {
     private final JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
+    private static QuestionDAO questionDAO;
+
+    private QuestionDAO() {
+    }
+
+    public static QuestionDAO getInstance() {
+        if (questionDAO == null) {
+            questionDAO = new QuestionDAO();
+        }
+        return questionDAO;
+    }
 
     public Question insert(Question question) {
         KeyHolder keyHolder = new KeyHolder();

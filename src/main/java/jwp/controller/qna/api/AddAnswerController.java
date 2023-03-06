@@ -16,17 +16,16 @@ import java.util.logging.Logger;
 
 public class AddAnswerController extends AbstractController {
     Logger logger = Logger.getLogger(AbstractController.class.getName());
+    AnswerDAO answerDAO = AnswerDAO.getInstance();
+    QuestionDAO questionDAO = QuestionDAO.getInstance();
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Answer answer = new Answer(Integer.parseInt(request.getParameter("questionId")), request.getParameter("writer"), request.getParameter("contents"));
 
         logger.log(Level.INFO,answer.getContents());
-
-        AnswerDAO answerDAO = new AnswerDAO();
         Answer savedAnswer = answerDAO.insert(answer);
 
-        QuestionDAO questionDAO = new QuestionDAO();
         Question question = questionDAO.findByQuestionId(answer.getQuestionId());
         question.increaseCountOfAnswer();
         questionDAO.updateCountOfAnswer(question);

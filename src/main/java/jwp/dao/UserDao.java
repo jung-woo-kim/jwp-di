@@ -7,6 +7,18 @@ import java.util.List;
 
 public class UserDao {
     private final JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
+    private static UserDao userDao;
+
+    private UserDao() {
+    }
+
+    public static UserDao getInstance() {
+        if (userDao == null) {
+            userDao = new UserDao();
+        }
+        return userDao;
+    }
+
     public void insert(User user) {
         jdbcTemplate.update("INSERT INTO USERS VALUES (?, ?, ?, ?)", pstmt -> {
             pstmt.setString(1, user.getUserId());

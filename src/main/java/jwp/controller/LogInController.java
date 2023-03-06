@@ -12,13 +12,12 @@ import java.util.logging.Logger;
 public class LogInController extends AbstractController {
 
     Logger logger = Logger.getLogger(LogInController.class.getName());
+    UserDao userDao = UserDao.getInstance();
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
         String userId = request.getParameter("userId");
         String password = request.getParameter("password");
-
-        UserDao userDao = new UserDao();
 
         User user = userDao.findByUserId(userId);
         if (user != null && user.matchPassword(password)) {

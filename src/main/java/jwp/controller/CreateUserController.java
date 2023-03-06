@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 
 public class CreateUserController extends AbstractController {
+    UserDao userDao = UserDao.getInstance();
 
     Logger logger = Logger.getLogger(CreateUserController.class.getName());
     @Override
@@ -21,7 +22,6 @@ public class CreateUserController extends AbstractController {
                 request.getParameter("password"),
                 request.getParameter("name"),
                 request.getParameter("email"));
-        UserDao userDao = new UserDao();
         userDao.insert(user);
 
         return jspView("redirect:/user/list");

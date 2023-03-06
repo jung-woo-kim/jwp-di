@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 public class UpdateUserController extends AbstractController {
 
     Logger logger = Logger.getLogger(UpdateUserController.class.getName());
+    UserDao userDao = UserDao.getInstance();
+
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
@@ -21,7 +23,6 @@ public class UpdateUserController extends AbstractController {
                 request.getParameter("name"),
                 request.getParameter("email"));
 
-        UserDao userDao = new UserDao();
         userDao.update(user);
 
         return jspView("redirect:/user/list");

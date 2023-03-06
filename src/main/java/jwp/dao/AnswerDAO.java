@@ -8,7 +8,18 @@ import java.util.List;
 
 public class AnswerDAO {
 
+    private static AnswerDAO answerDAO;
     private final JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
+
+    private AnswerDAO() {
+    }
+
+    public static AnswerDAO getInstance() {
+        if (answerDAO == null) {
+            answerDAO = new AnswerDAO();
+        }
+        return answerDAO;
+    }
 
     public Answer insert(Answer answer) {
         KeyHolder keyHolder = new KeyHolder();

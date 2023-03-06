@@ -1,6 +1,7 @@
 package jwp.controller.qna;
 
 import jwp.controller.AbstractController;
+import jwp.dao.AnswerDAO;
 import jwp.dao.QuestionDAO;
 import jwp.model.Question;
 import jwp.model.User;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class UpdateQuestionFormController extends AbstractController {
+    QuestionDAO questionDAO = QuestionDAO.getInstance();
+
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -23,7 +26,6 @@ public class UpdateQuestionFormController extends AbstractController {
         }
 
         String questionId = request.getParameter("questionId");
-        QuestionDAO questionDAO = new QuestionDAO();
         Question question = questionDAO.findByQuestionId(Integer.parseInt(questionId));
 
         if (!question.isSameUser(Objects.requireNonNull(UserSessionUtils.getUserFromSession(session)))) {

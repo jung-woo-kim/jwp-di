@@ -17,12 +17,13 @@ import java.util.logging.Logger;
 
 public class DeleteAnswerController extends AbstractController {
     Logger logger = Logger.getLogger(AbstractController.class.getName());
+    AnswerDAO answerDAO = AnswerDAO.getInstance();
+    QuestionDAO questionDAO = QuestionDAO.getInstance();
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int answerId = Integer.parseInt(request.getParameter("answerId"));
-        AnswerDAO answerDAO = new AnswerDAO();
-        QuestionDAO questionDAO = new QuestionDAO();
+
 
         Answer answer = answerDAO.findById(answerId);
         Question question = questionDAO.findByQuestionId(answer.getQuestionId());
