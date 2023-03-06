@@ -6,7 +6,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcTemplate<T> {
+public class JdbcTemplate {
+
+    private static JdbcTemplate jdbcTemplate;
+
+    private JdbcTemplate() {}
+
+    public static JdbcTemplate getInstance() {
+        if (jdbcTemplate == null) {
+            jdbcTemplate = new JdbcTemplate();
+        }
+        return jdbcTemplate;
+    }
+
     public void update(String sql, PreparedStatementSetter pstmtSetter){
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmtSetter.setValues(pstmt);
@@ -43,7 +55,7 @@ public class JdbcTemplate<T> {
         }
     }
 
-    public List<T> query(String sql, RowMapper<T> rowMapper){
+    public <T> List<T> query(String sql, RowMapper<T> rowMapper){
         List<T> objects = new ArrayList<>();
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
@@ -56,7 +68,7 @@ public class JdbcTemplate<T> {
         return objects;
     }
 
-    public List<T> query(String sql, PreparedStatementSetter pstmtSetter, RowMapper<T> rowMapper){
+    public <T> List<T> query(String sql, PreparedStatementSetter pstmtSetter, RowMapper<T> rowMapper){
         List<T> objects = new ArrayList<>();
         ResultSet rs = null;
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -80,7 +92,7 @@ public class JdbcTemplate<T> {
         return objects;
     }
 
-    public T queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper<T> rowMapper){
+    public <T> T queryForObject(String sql, PreparedStatementSetter pstmtSetter, RowMapper<T> rowMapper){
         ResultSet rs = null;
         try (Connection con = ConnectionManager.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmtSetter.setValues(pstmt);

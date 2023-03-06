@@ -44,7 +44,7 @@ public class User {
     }
 
     public boolean isSameUser(User user) {
-        return isSameUser(user);
+        return isSameUser(user.getUserId());
     }
 
     public boolean isSameUser(String userId) {

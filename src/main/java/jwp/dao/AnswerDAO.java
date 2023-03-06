@@ -7,7 +7,8 @@ import jwp.support.jdbc.KeyHolder;
 import java.util.List;
 
 public class AnswerDAO {
-    private final JdbcTemplate<Answer> jdbcTemplate = new JdbcTemplate<>();
+
+    private final JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
     public Answer insert(Answer answer) {
         KeyHolder keyHolder = new KeyHolder();
