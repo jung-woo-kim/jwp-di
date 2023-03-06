@@ -2,6 +2,9 @@ package jwp.controller.qna.api;
 
 import jwp.controller.AbstractController;
 import jwp.dao.AnswerDAO;
+import jwp.dao.QuestionDAO;
+import jwp.model.Answer;
+import jwp.model.Question;
 import jwp.model.Result;
 import jwp.mvc_container.JsonView;
 import jwp.mvc_container.ModelAndView;
@@ -18,9 +21,16 @@ public class DeleteAnswerController extends AbstractController {
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int answerId = Integer.parseInt(request.getParameter("answerId"));
-
         AnswerDAO answerDAO = new AnswerDAO();
+        QuestionDAO questionDAO = new QuestionDAO();
+
+        Answer answer = answerDAO.findById(answerId);
+        Question question = questionDAO.findByQuestionId(answer.getQuestionId());
+        question.decreaseCountOfAnswer();
+        questionDAO.updateCountOfAnswer(question);
+
         answerDAO.delete(answerId);
+
         return jsonView().addObject("result",Result.ok());
     }
 }

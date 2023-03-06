@@ -21,6 +21,10 @@ function onSuccess(json, status){
   var answerTemplate = $("#answerTemplate").html();
   var template = answerTemplate.format(json.answer.writer, new Date(json.answer.createdDate), json.answer.contents, json.answer.answerId, json.answer.answerId);
   $(".qna-comment-slipp-articles").prepend(template);
+  var countOfAnswer = document.getElementsByTagName("strong").item(0);
+  let number = parseInt(countOfAnswer.innerText,10);
+  number += 1;
+  countOfAnswer.textContent = number.toString();
 }
 
 function onError(xhr, status) {
@@ -44,7 +48,11 @@ function deleteAnswer(e) {
       alert("error");
     },
     success: function (json, status) {
-      if (json.status) {
+      if (json.result.status) {
+        var countOfAnswer = document.getElementsByTagName("strong").item(0);
+        let number = parseInt(countOfAnswer.innerText,10);
+        number -= 1;
+        countOfAnswer.textContent = number.toString();
         deleteBtn.closest('article').remove();
       }
     }
