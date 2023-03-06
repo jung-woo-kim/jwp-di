@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AnnotationHandlerMapping {
+public class AnnotationHandlerMapping implements HandlerMapping{
     private final Object[] basePackage;
 
     private final Map<HandlerKey, HandlerExecution> handlerExecutions = new HashMap<>();
@@ -35,6 +35,7 @@ public class AnnotationHandlerMapping {
         return new HandlerKey(annotation.value(), annotation.method());
     }
 
+    @Override
     public HandlerExecution getHandler(HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         RequestMethod rm = RequestMethod.valueOf(request.getMethod().toUpperCase());

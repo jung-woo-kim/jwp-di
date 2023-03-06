@@ -1,21 +1,22 @@
 package core.mvc;
 
+import core.nmvc.HandlerMapping;
 import jwp.controller.*;
 import jwp.controller.qna.*;
 import jwp.controller.qna.api.AddAnswerController;
 import jwp.controller.qna.api.DeleteAnswerController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LegacyHandlerMapping {
+public class LegacyHandlerMapping implements HandlerMapping {
     private final Map<String, Controller> controllers = new HashMap<>();
 
     public LegacyHandlerMapping() {
-        initControllers();
     }
 
-    private void initControllers() {
+    public void initControllers() {
         controllers.put("/", new HomeController());
 
         controllers.put("/users/create",new CreateUserController());
@@ -40,7 +41,8 @@ public class LegacyHandlerMapping {
 
     }
 
-    public Controller getController(String url) {
-        return controllers.get(url);
+    @Override
+    public Object getHandler(HttpServletRequest request) {
+        return controllers.get(request.getRequestURI());
     }
 }
