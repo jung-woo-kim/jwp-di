@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class AnnotationHandlerMappingTest {
     private AnnotationHandlerMapping handlerMapping;
     private MockHttpServletResponse response;
-    private MockHttpServletRequest request;
     @BeforeEach
     void setUp() {
         handlerMapping = new AnnotationHandlerMapping("core.nmvc");

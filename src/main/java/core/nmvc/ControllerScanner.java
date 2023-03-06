@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class ControllerScanner {
     private static final Logger logger = Logger.getLogger(ControllerScanner.class.getName());
 
-    Reflections reflections;
+    private final Reflections reflections;
 
     public ControllerScanner(Object... basePackage) {
         this.reflections = new Reflections(basePackage);
