@@ -1,8 +1,8 @@
 package jwp.controller;
 
-import jwp.mvc_container.JsonView;
-import jwp.mvc_container.JspView;
-import jwp.mvc_container.ModelAndView;
+import core.mvc.JsonView;
+import core.mvc.JspView;
+import core.mvc.ModelAndView;
 
 public abstract class AbstractController implements Controller{
     protected ModelAndView jspView(String url) {

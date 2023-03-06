@@ -1,10 +1,9 @@
 package jwp.controller.qna;
 
 import jwp.controller.AbstractController;
-import jwp.dao.AnswerDAO;
 import jwp.dao.QuestionDAO;
 import jwp.model.Question;
-import jwp.mvc_container.ModelAndView;
+import core.mvc.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

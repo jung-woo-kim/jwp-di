@@ -2,7 +2,7 @@ package jwp.controller;
 
 import jwp.dao.UserDao;
 import jwp.model.User;
-import jwp.mvc_container.ModelAndView;
+import core.mvc.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package jwp.mvc_container;
+package core.mvc;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -1,7 +1,7 @@
 package jwp.controller.qna;
 
 import jwp.controller.AbstractController;
-import jwp.mvc_container.ModelAndView;
+import core.mvc.ModelAndView;
 import jwp.util.UserSessionUtils;
 
 import javax.servlet.http.HttpServletRequest;

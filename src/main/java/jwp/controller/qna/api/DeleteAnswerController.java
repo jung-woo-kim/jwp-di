@@ -6,8 +6,7 @@ import jwp.dao.QuestionDAO;
 import jwp.model.Answer;
 import jwp.model.Question;
 import jwp.model.Result;
-import jwp.mvc_container.JsonView;
-import jwp.mvc_container.ModelAndView;
+import core.mvc.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

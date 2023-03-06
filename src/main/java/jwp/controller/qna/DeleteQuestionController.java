@@ -1,9 +1,7 @@
 package jwp.controller.qna;
 
 import jwp.controller.AbstractController;
-import jwp.dao.AnswerDAO;
-import jwp.dao.QuestionDAO;
-import jwp.mvc_container.ModelAndView;
+import core.mvc.ModelAndView;
 import jwp.service.QnaService;
 
 import javax.servlet.ServletException;
@@ -13,8 +11,6 @@ import java.io.IOException;
 
 
 public class DeleteQuestionController extends AbstractController {
-    QuestionDAO questionDAO = QuestionDAO.getInstance();
-    AnswerDAO answerDAO = AnswerDAO.getInstance();
     QnaService qnaService = QnaService.getInstance();
 
     @Override

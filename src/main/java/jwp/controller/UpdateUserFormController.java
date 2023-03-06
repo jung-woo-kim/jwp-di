@@ -1,7 +1,7 @@
 package jwp.controller;
 
 import jwp.model.User;
-import jwp.mvc_container.ModelAndView;
+import core.mvc.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
