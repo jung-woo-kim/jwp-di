@@ -1,5 +1,7 @@
 package core.mvc;
 
+import core.nmvc.AnnotationHandlerMapping;
+import core.nmvc.HandlerExecution;
 import jwp.controller.Controller;
 
 import javax.servlet.*;
@@ -16,19 +18,29 @@ public class DispatcherServlet extends HttpServlet {
 
     Logger logger = Logger.getLogger(DispatcherServlet.class.getName());
 
-    RequestMapping requestMapping;
+    LegacyHandlerMapping lhm;
+    AnnotationHandlerMapping ahm;
+
 
     @Override
     public void init() {
-        requestMapping = new RequestMapping();
+        lhm = new LegacyHandlerMapping();
+        ahm = new AnnotationHandlerMapping();
+        ahm.initialize();
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Controller controller = requestMapping.getController(req.getRequestURI());
         try {
-            ModelAndView view = controller.execute(req, resp);
-            view.render(req,resp);
+            Controller controller = lhm.getController(req.getRequestURI());
+            if (controller != null) {
+                ModelAndView view = controller.execute(req, resp);
+                view.render(req,resp);
+                return;
+            }
+            HandlerExecution handler = ahm.getHandler(req);
+            ModelAndView view = handler.handle(req, resp);
+            view.render(req, resp);
         } catch (Exception e) {
             logger.log(Level.WARNING,e.getMessage());
         }

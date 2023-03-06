@@ -8,10 +8,10 @@ import jwp.controller.qna.api.DeleteAnswerController;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestMapping {
+public class LegacyHandlerMapping {
     private final Map<String, Controller> controllers = new HashMap<>();
 
-    public RequestMapping() {
+    public LegacyHandlerMapping() {
         initControllers();
     }
 
