@@ -54,8 +54,17 @@ public class Question {
         return countOfAnswer;
     }
 
+    public void updateTitleAndContents(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
+
     public void increaseCountOfAnswer() {
         countOfAnswer += 1;
+    }
+
+    public boolean isSameUser(User user) {
+        return user.isSameUser(writer);
     }
 
     public void decreaseCountOfAnswer() {

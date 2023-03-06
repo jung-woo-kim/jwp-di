@@ -1,10 +1,8 @@
 package jwp.controller.qna;
 
 import jwp.controller.AbstractController;
-import jwp.dao.QuestionDAO;
-import jwp.model.Question;
 import jwp.mvc_container.ModelAndView;
-import jwp.util.HttpSessionUtils;
+import jwp.util.UserSessionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +12,7 @@ public class FormController extends AbstractController {
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if (HttpSessionUtils.isLogined(session)) {
+        if (UserSessionUtils.isLogined(session)) {
             return jspView("/qna/form.jsp");
         }
         return jspView("redirect:/");

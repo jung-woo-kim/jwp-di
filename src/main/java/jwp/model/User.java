@@ -44,7 +44,11 @@ public class User {
     }
 
     public boolean isSameUser(User user) {
-        return userId.equals(user.userId);
+        return isSameUser(user);
+    }
+
+    public boolean isSameUser(String userId) {
+        return userId.equals(this.userId);
     }
 
     @Override

@@ -2,7 +2,7 @@ package jwp.controller;
 
 import jwp.dao.UserDao;
 import jwp.mvc_container.ModelAndView;
-import jwp.util.HttpSessionUtils;
+import jwp.util.UserSessionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +16,7 @@ public class ListUserController extends AbstractController {
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if (HttpSessionUtils.isLogined(session)) {
+        if (UserSessionUtils.isLogined(session)) {
             UserDao userDao = new UserDao();
             return jspView("/user/list.jsp").addObject("users", userDao.findAll());
         }
