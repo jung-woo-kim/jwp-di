@@ -1,17 +1,21 @@
 package jwp.controller;
 
-import jwp.dao.QuestionDAO;
+import core.annotation.Controller;
+import core.annotation.RequestMapping;
+import core.mvc.JspView;
 import core.mvc.ModelAndView;
+import jwp.dao.QuestionDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-public class HomeController extends AbstractController {
+@Controller
+public class HomeController {
     QuestionDAO questionDAO = QuestionDAO.getInstance();
 
-    @Override
+    @RequestMapping("/")
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
-        return jspView("/home.jsp").addObject("questions", questionDAO.findAll());
+        ModelAndView modelAndView = new ModelAndView(new JspView("/home.jsp"));
+        return modelAndView.addObject("questions",questionDAO.findAll());
     }
 }

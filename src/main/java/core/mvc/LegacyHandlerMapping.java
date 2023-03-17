@@ -17,7 +17,6 @@ public class LegacyHandlerMapping implements HandlerMapping {
     }
 
     public void initControllers() {
-        controllers.put("/", new HomeController());
 
         controllers.put("/users/create",new CreateUserController());
         controllers.put("/user/list", new ListUserController());
